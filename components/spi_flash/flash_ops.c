@@ -24,6 +24,7 @@
 #include "esp_private/esp_clk.h"
 #include "esp_private/esp_gpio_reserve.h"
 #if CONFIG_IDF_TARGET_ESP32
+#include "soc_flash_init.h"
 #include "esp32/rom/cache.h"
 #include "esp32/rom/spi_flash.h"
 #elif CONFIG_IDF_TARGET_ESP32S2
@@ -154,22 +155,22 @@ void IRAM_ATTR esp_mspi_pin_init(void)
     esp_gpio_reserve_pins(reserve_pin_mask);
 }
 
-esp_err_t IRAM_ATTR spi_flash_init_chip_state(void)
-{
-#if SOC_SPI_MEM_SUPPORT_OPI_MODE
-    if (bootloader_flash_is_octal_mode_enabled()) {
-        return esp_opiflash_init(rom_spiflash_legacy_data->chip.device_id);
-    } else
-#endif
-    {
-    #if CONFIG_IDF_TARGET_ESP32S3
-        // Currently, only esp32s3 allows high performance mode.
-        return spi_flash_enable_high_performance_mode();
-    #else
-        return ESP_OK;
-    #endif // CONFIG_IDF_TARGET_ESP32S3
-    }
-}
+// esp_err_t IRAM_ATTR spi_flash_init_chip_state(void)
+// {
+// #if SOC_SPI_MEM_SUPPORT_OPI_MODE
+//     if (bootloader_flash_is_octal_mode_enabled()) {
+//         return esp_opiflash_init(rom_spiflash_legacy_data->chip.device_id);
+//     } else
+// #endif
+//     {
+//     #if CONFIG_IDF_TARGET_ESP32S3
+//         // Currently, only esp32s3 allows high performance mode.
+//         return spi_flash_enable_high_performance_mode();
+//     #else
+//         return ESP_OK;
+//     #endif // CONFIG_IDF_TARGET_ESP32S3
+//     }
+// }
 
 void IRAM_ATTR spi_flash_set_rom_required_regs(void)
 {
@@ -243,7 +244,7 @@ uint8_t esp_mspi_get_io(esp_mspi_io_t io)
          * 2. rom code take 0x3f as invalid wp pad num, but take 0 as other invalid mspi pads num
          */
 #if CONFIG_IDF_TARGET_ESP32
-        return bootloader_flash_get_wp_pin();
+        return flash_get_wp_pin();
 #else
         spiconfig = esp_rom_efuse_get_flash_wp_gpio();
         return (spiconfig == 0x3f) ? s_mspi_io_num_default[io] : spiconfig & 0x3f;

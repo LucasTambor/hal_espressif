@@ -47,6 +47,7 @@
 	DT_PROP_BY_IDX(DT_NODELABEL(uart0), reg, 0) ==		\
 	DT_PROP_BY_IDX(DT_CHOSEN(zephyr_console), reg, 0)
 #define CONFIG_ESP_CONSOLE_UART 1
+#define ESP_CONSOLE_UART 1
 #define ESP_CONSOLE_UART_NUM 0
 #define ESP_CONSOLE_UART_BAUDRATE DT_PROP(DT_NODELABEL(uart0), current_speed)
 
@@ -54,6 +55,7 @@
 	DT_PROP_BY_IDX(DT_NODELABEL(uart1), reg, 0) ==		\
 	DT_PROP_BY_IDX(DT_CHOSEN(zephyr_console), reg, 0)
 #define CONFIG_ESP_CONSOLE_UART 1
+#define ESP_CONSOLE_UART 1
 #define ESP_CONSOLE_UART_NUM 1
 #define ESP_CONSOLE_UART_BAUDRATE DT_PROP(DT_NODELABEL(uart1), current_speed)
 
@@ -61,6 +63,7 @@
 	DT_PROP_BY_IDX(DT_NODELABEL(uart2), reg, 0) ==		\
 	DT_PROP_BY_IDX(DT_CHOSEN(zephyr_console), reg, 0)
 #define CONFIG_ESP_CONSOLE_UART 1
+#define ESP_CONSOLE_UART 1
 #define ESP_CONSOLE_UART_NUM 2
 #define ESP_CONSOLE_UART_BAUDRATE DT_PROP(DT_NODELABEL(uart2), current_speed)
 
@@ -68,6 +71,7 @@
 	DT_PROP_BY_IDX(DT_NODELABEL(usb_serial), reg, 0) ==		\
 	DT_PROP_BY_IDX(DT_CHOSEN(zephyr_console), reg, 0)
 #define CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG 1
+#define ESP_CONSOLE_USB_SERIAL_JTAG 1
 #define ESP_CONSOLE_UART_NUM ESP_ROM_USB_SERIAL_DEVICE_NUM
 #define ESP_CONSOLE_UART_BAUDRATE 1
 #else
